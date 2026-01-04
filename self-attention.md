@@ -11,6 +11,8 @@ TransformerやEncoder層・Decoder層、Transformer以外のAttentionの説明�
 
 ## 全体像
 
+![](https://cdn.prod.website-files.com/62528d398a42420e66390ef9/65cd0d82d6983755c129822a_Untitled.png)
+
 Self-AttentionはMulti-Head Attentionというネットワークの特殊化です。
 
 Multi-Head AttentionはScaled Dot-Product Attentionというネットワークの拡張です。
@@ -21,19 +23,18 @@ Multi-Head AttentionはScaled Dot-Product Attentionというネットワーク�
 
 ## Scaled Dot-Product Attention
 
-一言で述べると、Scaled Dot-Product Attentionは、KeyベクトルとValueベクトルのペアからなる辞書に対して、Valueベクトルの加重平均を計算するネットワークです。
+一言で述べると、Scaled Dot-Product Attention は、 <mark> Key ベクトルと Value ベクトルのペアからなる辞書に対して、 Value ベクトルの加重平均を計算するネットワーク </mark> です。
 加重平均は、Queryベクトル1つごとに、QueryにマッチするKeyのValueほど大きな重みを持つように計算します。
-
-しかし、いきなりそのように述べられても何が何だかわからないと思いますので、少しずつ噛み砕いて説明していきます。
 
 ## 最初に最低限の構造を頭に入れる
 
 Scaled Dot-Product Attentionは、実は学習用のパラメータを持たない、入力された行列同士を単に演算するだけのネットワークです。
 
 ミニバッチまで考慮すると入力は階数3のテンソルですが、多くの解説記事と同様に、1サンプル分の行列を入力として説明していきます。
-また、理解を助けるために、以下では「行列」の代わりに「ベクトルの配列」という表現を用いる場合があります。1つの行が（横）ベクトルで、1行目2行目……がそれぞれ1ベクトル目2ベクトル目です。
+また、理解を助けるために、以下では「行列」の代わりに「ベクトルの配列」という表現を用いる場合があります。
+1 つの行が（横）ベクトルで、 1 行目 2 行目... がそれぞれ 1 ベクトル目 2 ベクトル目です。
 
-さて、具体的には、Scaled Dot-Product Attentionは、 Q,K,V と表される3つの行列を入力に取り、1つの行列を出力します。
+さて、具体的には、 Scaled Dot-Product Attention は、 Q,K,V と表される3つの行列を入力に取り、1つの行列を出力します。
 
 - Q は Query と呼ばれ、長さ dQ のベクトルを N 個並べた行列です。
 - K は Keyと呼ばれ、長さ dK のベクトルを M 個並べた行列です。
